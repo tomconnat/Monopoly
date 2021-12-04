@@ -74,6 +74,7 @@ void Menu()
     printf("1) Jouer\n2) Afficher les regles\n3) Charger la partie suivante\n4) Presentation des createurs du projet\n5) Quitter le jeu.\n");
     scanf("%d", &choix);
 
+
     switch (choix) {
 
         case 1:
