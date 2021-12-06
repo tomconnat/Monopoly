@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 #include "Initialisation.h"
 
@@ -188,37 +189,37 @@ void InitialisationPlateau(Case plateau[31]) {
     }
     plateau[31].numero = 32;
     plateau[0].nom = "Depart";
-    plateau[1].nom = "P 1 GP 1";
-    plateau[2].nom = "Taxe hab";
-    plateau[3].nom = "P 2 GP 1";
-    plateau[4].nom = "GO Case 13";
-    plateau[5].nom = "P 1 GP 2";
-    plateau[6].nom = "Carte comu";
-    plateau[7].nom = "P 2 GP 2";
+    plateau[1].nom = "P1 GP1";
+    plateau[2].nom = "Taxe";
+    plateau[3].nom = "P2 GP1";
+    plateau[4].nom = "Tp 1";
+    plateau[5].nom = "P1 GP2";
+    plateau[6].nom = "COMU";
+    plateau[7].nom = "P2 GP2";
     plateau[8].nom = "Prison";
-    plateau[9].nom = "P 1 GP 3";
+    plateau[9].nom = "P1 GP3";
     plateau[10].nom = "ISF";
-    plateau[11].nom = "P 2 GP 3";
-    plateau[12].nom = "Go case 21";
-    plateau[13].nom = "P 1 GP 4";
-    plateau[14].nom = "Carte chance";
-    plateau[15].nom = "P 2 GP 4'";
-    plateau[16].nom = "Satio gratuit";
-    plateau[17].nom = "P 1 GP 5";
+    plateau[11].nom = "P2 GP3";
+    plateau[12].nom = "TP 2";
+    plateau[13].nom = "P1 GP4";
+    plateau[14].nom = "CHANCE";
+    plateau[15].nom = "P2 GP4";
+    plateau[16].nom = "RELAX";
+    plateau[17].nom = "P1 GP5";
     plateau[18].nom = "Taxe luxe";
-    plateau[19].nom = "P 2 GP 5";
-    plateau[20].nom = "Go case 29";
-    plateau[21].nom = "P 1 GP 6";
-    plateau[22].nom = "Carte comu";
-    plateau[23].nom = "P 2 GP 6";
+    plateau[19].nom = "P2 GP5";
+    plateau[20].nom = "TP3";
+    plateau[21].nom = "P1 GP6";
+    plateau[22].nom = "COMMU";
+    plateau[23].nom = "P2 GP6";
     plateau[24].nom = "Prison";
-    plateau[25].nom = "P 1 GP 7";
+    plateau[25].nom = "P1 GP7";
     plateau[26].nom = "50e";
-    plateau[27].nom = "P2 GP 7";
-    plateau[28].nom = "Go case 5";
-    plateau[29].nom = "P1 GP 8";
-    plateau[30].nom = "Carte chance";
-    plateau[31].nom = "P2 GP 8";
+    plateau[27].nom = "P2 GP7";
+    plateau[28].nom = "Go en 5";
+    plateau[29].nom = "P1 GP8";
+    plateau[30].nom = "CHANCE";
+    plateau[31].nom = "P2 GP8";
 }
 
 void InitialisationPions(int nb, Pion* pions) {
@@ -236,9 +237,19 @@ void InitialisationJoueur(Joueur joueur[], int nb, Pion *pion) {
         printf("Joueur %d saisir votre pseudo  :\n ", i + 1);
         scanf("%d", &flush);
         fgets(joueur[i].nom, 10, stdin);
+        joueur[i].nom[strlen(joueur[i].nom) - 1] = '\0';
         joueur[i].argent = 1500;
         joueur[i].pPion = &pion[i];
+        joueur[i].nbProp = 0;
         joueur[i].pPropriete = NULL;
+        joueur[i].pCarte = NULL;
+        joueur[i].etat = 0;
         flush = 0;
+    }
+    for (int i = 0; i < nb; ++i) {
+        int j = rand() % nb;
+        Joueur tmp = joueur[i];
+        joueur[i] = joueur[j];
+        joueur[j] = tmp;
     }
 }
